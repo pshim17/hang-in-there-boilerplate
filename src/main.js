@@ -1,4 +1,10 @@
 // query selector variables go here 👇
+const randomPosterButton = document.querySelector(".show-random");
+const makeOwnPosterButton = document.querySelector(".show-form");
+const nvmBackToMainButton = document.querySelector(".show-main");
+const showSavedPosterButton = document.querySelector(".show-saved");
+const backToMainButton = document.querySelector(".back-to-main");
+
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -103,6 +109,41 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
+document.addEventListener("DOMContentLoaded", function() {
+  randomPosterButton.click();
+});
+
+randomPosterButton.addEventListener("click", function() {
+  let imageURL = images[getRandomIndex(images)];
+  let title = titles[getRandomIndex(titles)];
+  let quote = quotes[getRandomIndex(quotes)];
+
+  console.log(document.querySelector(".poster-img").src = imageURL);
+  console.log(document.querySelector(".poster-title").textContent = title);
+  console.log(document.querySelector(".poster-quote").textContent = quote);
+
+  createPoster(imageURL, title, quote);
+});
+
+makeOwnPosterButton.addEventListener("click", function() {
+  document.querySelector('.poster-form').classList.remove('hidden');
+  document.querySelector('.main-poster').classList.add('hidden');
+})
+
+nvmBackToMainButton.addEventListener("click", function() {
+  document.querySelector('.poster-form').classList.add('hidden');
+  document.querySelector('.main-poster').classList.remove('hidden');
+})
+
+showSavedPosterButton.addEventListener("click", function() {
+  document.querySelector('.saved-posters').classList.remove('hidden');
+  document.querySelector('.main-poster').classList.add('hidden');
+})
+
+backToMainButton.addEventListener("click", function() {
+  document.querySelector('.saved-posters').classList.add('hidden');
+  document.querySelector('.main-poster').classList.remove('hidden');
+})
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -115,5 +156,6 @@ function createPoster(imageURL, title, quote) {
     id: Date.now(), 
     imageURL: imageURL, 
     title: title, 
-    quote: quote}
+    quote: quote
+  }
 }
