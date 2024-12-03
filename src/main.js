@@ -4,7 +4,7 @@ const makeOwnPosterButton = document.querySelector(".show-form");
 const nvmBackToMainButton = document.querySelector(".show-main");
 const showSavedPosterButton = document.querySelector(".show-saved");
 const backToMainButton = document.querySelector(".back-to-main");
-
+const showCreatedPosterButton = document.querySelector(".make-poster");
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -143,6 +143,30 @@ showSavedPosterButton.addEventListener("click", function() {
 backToMainButton.addEventListener("click", function() {
   document.querySelector('.saved-posters').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
+})
+
+showCreatedPosterButton.addEventListener("click", function() {
+  let imageURL = document.getElementById("poster-image-url").value;
+  let title = document.getElementById("poster-title").value;
+  let quote = document.getElementById("poster-quote").value;
+
+  currentPoster = createPoster(imageURL, title, quote);
+
+  images.push(imageURL);
+  titles.push(title);
+  quotes.push(quote);
+
+  document.querySelector('.poster-form').classList.add('hidden');
+
+  document.querySelector(".poster-img").src = imageURL;
+  document.querySelector(".poster-title").textContent = title;
+  document.querySelector(".poster-quote").textContent = quote;
+  
+  document.querySelector('.main-poster').classList.remove('hidden');
+
+
+
+  event.preventDefault()
 })
 
 // functions and event handlers go here 👇
