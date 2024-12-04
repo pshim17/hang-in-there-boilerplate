@@ -7,8 +7,9 @@ const backToMainButton = document.querySelector(".back-to-main");
 const showCreatedPosterButton = document.querySelector(".make-poster");
 const saveThisPosterButton = document.querySelector(".save-poster");
 const savedPostersGrid = document.querySelector(".saved-posters-grid");
-const unmotivationalPostersBtn = document.querySelector(".show-unmotivational-poster");
+const unmotivationalPostersBtn = document.querySelector(".show-unmotivational-posters");
 const backToMainbtn = document.querySelector(".backToMain");
+const unmotivationalPostersGrid = document.querySelector(".unmotivational-posters-grid");
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -231,6 +232,8 @@ let unmotivationalPosters = [
     img_url: "./assets/doubt.jpg",
   }
 ];
+
+let cleanedPosterData = [];
 var savedPosters = [];
 var currentPoster;
 
@@ -331,7 +334,23 @@ unmotivationalPostersBtn.addEventListener("click", function() {
   document.querySelector('.main-poster').classList.add('hidden');
   document.querySelector('.unmotivational-posters').classList.remove('hidden');
 
+  cleanData();
 
+  for (let i = 0; i < cleanedPosterData.length; i++) {
+    let imageURL = cleanedPosterData[i].imageURL;
+    let title = cleanedPosterData[i].title;
+    let quote = cleanedPosterData[i].quote;
+
+    console.log(imageURL)
+    console.log(title)
+    console.log(quote)
+
+    unmotivationalPostersGrid.innerHTML += `<article class="mini-poster">
+                                              <img src="${imageURL}">
+                                              <h2>${title}</h2>
+                                              <h4>${quote}</h4>
+                                            </article> `;
+  }
 })
 
 backToMainbtn.addEventListener("click", function() {
@@ -351,5 +370,15 @@ function createPoster(imageURL, title, quote) {
     imageURL: imageURL, 
     title: title, 
     quote: quote
+  }
+}
+
+function cleanData() {
+  for (let i = 0; i < unmotivationalPosters.length; i++) {
+    let imageURL = unmotivationalPosters[i].img_url;
+    let title = unmotivationalPosters[i].name;
+    let quote = unmotivationalPosters[i].description;  
+
+    cleanedPosterData.push(createPoster(imageURL, title, quote));
   }
 }
