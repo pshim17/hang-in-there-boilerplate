@@ -7,6 +7,8 @@ const backToMainButton = document.querySelector(".back-to-main");
 const showCreatedPosterButton = document.querySelector(".make-poster");
 const saveThisPosterButton = document.querySelector(".save-poster");
 const savedPostersGrid = document.querySelector(".saved-posters-grid");
+const unmotivationalPostersBtn = document.querySelector(".show-unmotivational-poster");
+const backToMainbtn = document.querySelector(".backToMain");
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -201,6 +203,16 @@ saveThisPosterButton.addEventListener("click", function() {
     savedPosters.push(currentPoster);
   }
   console.log(savedPosters)
+})
+
+unmotivationalPostersBtn.addEventListener("click", function() {
+  document.querySelector('.main-poster').classList.add('hidden');
+  document.querySelector('.unmotivational-posters').classList.remove('hidden');
+})
+
+backToMainbtn.addEventListener("click", function() {
+  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector('.unmotivational-posters').classList.add('hidden');
 })
 
 // functions and event handlers go here 👇
