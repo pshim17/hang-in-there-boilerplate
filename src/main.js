@@ -5,6 +5,8 @@ const nvmBackToMainButton = document.querySelector(".show-main");
 const showSavedPosterButton = document.querySelector(".show-saved");
 const backToMainButton = document.querySelector(".back-to-main");
 const showCreatedPosterButton = document.querySelector(".make-poster");
+const saveThisPosterButton = document.querySelector(".save-poster");
+const savedPostersGrid = document.querySelector(".saved-posters-grid");
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -118,9 +120,9 @@ randomPosterButton.addEventListener("click", function() {
   let title = titles[getRandomIndex(titles)];
   let quote = quotes[getRandomIndex(quotes)];
 
-  console.log(document.querySelector(".poster-img").src = imageURL);
-  console.log(document.querySelector(".poster-title").textContent = title);
-  console.log(document.querySelector(".poster-quote").textContent = quote);
+  document.querySelector(".poster-img").src = imageURL;
+  document.querySelector(".poster-title").innerText = title;
+  document.querySelector(".poster-quote").innerText = quote;
 
   createPoster(imageURL, title, quote);
 });
@@ -138,6 +140,20 @@ nvmBackToMainButton.addEventListener("click", function() {
 showSavedPosterButton.addEventListener("click", function() {
   document.querySelector('.saved-posters').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
+
+  savedPostersGrid.innerHTML = ``;
+
+  for (let i = 0; i < savedPosters.length; i++) {
+    let imageURL = savedPosters[i].imageURL;
+    let title = savedPosters[i].title;
+    let quote = savedPosters[i].quote;
+
+    savedPostersGrid.innerHTML += `<article class="mini-poster">
+                                    <img src="${imageURL}">
+                                    <h2>${title}</h2>
+                                    <h4>${quote}</h4>
+                                  </article> `;
+  }
 })
 
 backToMainButton.addEventListener("click", function() {
@@ -146,9 +162,9 @@ backToMainButton.addEventListener("click", function() {
 })
 
 showCreatedPosterButton.addEventListener("click", function() {
-  let imageURL = document.getElementById("poster-image-url").value;
-  let title = document.getElementById("poster-title").value;
-  let quote = document.getElementById("poster-quote").value;
+  let imageURL = document.querySelector("#poster-image-url").value;
+  let title = document.querySelector("#poster-title").value;
+  let quote = document.querySelector("#poster-quote").value;
 
   currentPoster = createPoster(imageURL, title, quote);
 
@@ -156,17 +172,35 @@ showCreatedPosterButton.addEventListener("click", function() {
   titles.push(title);
   quotes.push(quote);
 
-  document.querySelector('.poster-form').classList.add('hidden');
+  document.querySelector(".poster-form").classList.add("hidden");
 
   document.querySelector(".poster-img").src = imageURL;
-  document.querySelector(".poster-title").textContent = title;
-  document.querySelector(".poster-quote").textContent = quote;
-  
-  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector(".poster-title").innerText = title;
+  document.querySelector(".poster-quote").innerText = quote;
 
-
+  document.querySelector(".main-poster").classList.remove("hidden");
 
   event.preventDefault()
+})
+
+saveThisPosterButton.addEventListener("click", function() {
+  let imageURL = document.querySelector(".poster-img").src;
+  let title = document.querySelector(".poster-title").innerText;
+  let quote = document.querySelector(".poster-quote").innerText;
+  let posterAlreadyExists = false;
+
+  for(let i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i].imageURL === imageURL) {
+      posterAlreadyExists = true;
+      break;
+    }
+  }
+
+  if (posterAlreadyExists === false) {
+    currentPoster = createPoster(imageURL, title, quote);
+    savedPosters.push(currentPoster);
+  }
+  console.log(savedPosters)
 })
 
 // functions and event handlers go here 👇
