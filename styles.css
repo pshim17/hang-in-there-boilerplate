@@ -119,11 +119,12 @@ button:hover {
 }
 
 .mini-poster {
-  background: black;
+  background: gray;
   color: white;
   height: 340px;
   padding: 25px;
   width: 425px;
+  border-radius: 10px;
 }
 
 .mini-poster img {
@@ -140,6 +141,7 @@ button:hover {
 }
 
 .mini-poster h2 {
+  color:black;
   font-size: 30px;
   font-weight: normal;
   letter-spacing: 5px;

@@ -257,12 +257,12 @@ randomPosterButton.addEventListener("click", function() {
 makeOwnPosterButton.addEventListener("click", function() {
   document.querySelector('.poster-form').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
-})
+});
 
 nvmBackToMainButton.addEventListener("click", function() {
   document.querySelector('.poster-form').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
-})
+});
 
 showSavedPosterButton.addEventListener("click", function() {
   document.querySelector('.saved-posters').classList.remove('hidden');
@@ -281,12 +281,12 @@ showSavedPosterButton.addEventListener("click", function() {
                                     <h4>${quote}</h4>
                                   </article> `;
   }
-})
+});
 
 backToMainButton.addEventListener("click", function() {
   document.querySelector('.saved-posters').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
-})
+});
 
 showCreatedPosterButton.addEventListener("click", function() {
   let imageURL = document.querySelector("#poster-image-url").value;
@@ -307,8 +307,8 @@ showCreatedPosterButton.addEventListener("click", function() {
 
   document.querySelector(".main-poster").classList.remove("hidden");
 
-  event.preventDefault()
-})
+  event.preventDefault();
+});
 
 saveThisPosterButton.addEventListener("click", function() {
   let imageURL = document.querySelector(".poster-img").src;
@@ -327,8 +327,7 @@ saveThisPosterButton.addEventListener("click", function() {
     currentPoster = createPoster(imageURL, title, quote);
     savedPosters.push(currentPoster);
   }
-  console.log(savedPosters)
-})
+});
 
 unmotivationalPostersBtn.addEventListener("click", function() {
   document.querySelector('.main-poster').classList.add('hidden');
@@ -341,28 +340,40 @@ unmotivationalPostersBtn.addEventListener("click", function() {
     let title = cleanedPosterData[i].title;
     let quote = cleanedPosterData[i].quote;
 
-    console.log(imageURL)
-    console.log(title)
-    console.log(quote)
-
     unmotivationalPostersGrid.innerHTML += `<article class="mini-poster">
                                               <img src="${imageURL}">
                                               <h2>${title}</h2>
                                               <h4>${quote}</h4>
-                                            </article> `;
-  }
-})
+                                            </article>`;
+  };
+
+  const miniPosters = document.querySelectorAll('.mini-poster');
+
+  miniPosters.forEach(miniPoster => {
+    miniPoster.addEventListener('dblclick', function(event) {
+      if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.classList.contains("mini-poster")) {
+        // console.log(event.target)
+        // console.log(miniPoster)
+        // console.log(miniPosters)
+        // console.log(miniPoster.hasChildNodes(event.target))
+        if (miniPoster.hasChildNodes(event.target)) {
+          miniPoster.remove()
+        };
+      };
+    });
+  });
+});
 
 backToMainbtn.addEventListener("click", function() {
   document.querySelector('.main-poster').classList.remove('hidden');
   document.querySelector('.unmotivational-posters').classList.add('hidden');
-})
+});
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
-}
+};
 
 function createPoster(imageURL, title, quote) {
   return {
@@ -371,7 +382,7 @@ function createPoster(imageURL, title, quote) {
     title: title, 
     quote: quote
   }
-}
+};
 
 function cleanData() {
   for (let i = 0; i < unmotivationalPosters.length; i++) {
@@ -381,4 +392,4 @@ function cleanData() {
 
     cleanedPosterData.push(createPoster(imageURL, title, quote));
   }
-}
+};
