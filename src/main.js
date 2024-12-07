@@ -233,9 +233,10 @@ let unmotivationalPosters = [
   }
 ];
 
-let cleanedPosterData = [];
 var savedPosters = [];
 var currentPoster;
+let cleanedPosterData = [];
+let firstTimeLoading = true;
 
 // event listeners go here 👇
 document.addEventListener("DOMContentLoaded", function() {
@@ -332,36 +333,47 @@ saveThisPosterButton.addEventListener("click", function() {
 unmotivationalPostersBtn.addEventListener("click", function() {
   document.querySelector('.main-poster').classList.add('hidden');
   document.querySelector('.unmotivational-posters').classList.remove('hidden');
+  
+  // debugger;
+  // console.log(firstTimeLoading)
 
-  cleanData();
+  if (firstTimeLoading) {
+    cleanData();
 
-  for (let i = 0; i < cleanedPosterData.length; i++) {
-    let imageURL = cleanedPosterData[i].imageURL;
-    let title = cleanedPosterData[i].title;
-    let quote = cleanedPosterData[i].quote;
-
-    unmotivationalPostersGrid.innerHTML += `<article class="mini-poster">
-                                              <img src="${imageURL}">
-                                              <h2>${title}</h2>
-                                              <h4>${quote}</h4>
-                                            </article>`;
-  };
-
-  const miniPosters = document.querySelectorAll('.mini-poster');
-
-  miniPosters.forEach(miniPoster => {
-    miniPoster.addEventListener('dblclick', function(event) {
-      if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.classList.contains("mini-poster")) {
-        // console.log(event.target)
-        // console.log(miniPoster)
-        // console.log(miniPosters)
-        // console.log(miniPoster.hasChildNodes(event.target))
-        if (miniPoster.hasChildNodes(event.target)) {
-          miniPoster.remove()
+    for (let i = 0; i < cleanedPosterData.length; i++) {
+      let imageURL = cleanedPosterData[i].imageURL;
+      let title = cleanedPosterData[i].title;
+      let quote = cleanedPosterData[i].quote;
+  
+      unmotivationalPostersGrid.innerHTML += `<article class="mini-poster">
+                                                <img src="${imageURL}">
+                                                <h2>${title}</h2>
+                                                <h4>${quote}</h4>
+                                              </article>`;
+    };
+  
+    const miniPosters = document.querySelectorAll('.mini-poster');
+  
+    miniPosters.forEach(miniPoster => {
+      miniPoster.addEventListener('dblclick', function(event) {
+        if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.classList.contains("mini-poster")) {
+          if (miniPoster.hasChildNodes(event.target)) {
+            miniPoster.remove();
+            for (let i = 0; i < cleanedPosterData.length; i++) {
+              let unmotivationalPosterValuesArray = Object.values(cleanedPosterData[i]);
+              if (event.target.tagName != 'IMG' && unmotivationalPosterValuesArray.includes(event.target.innerHTML) || event.target.tagName === 'IMG' && unmotivationalPosterValuesArray.includes(event.target.getAttribute('src'))) {
+                console.log(cleanedPosterData.splice(i, 1));
+                console.log(cleanedPosterData)
+                cleanedPosterData.splice(i, 1);
+                firstTimeLoading = false;
+                break;
+              };
+            };
+          };
         };
-      };
+      });
     });
-  });
+  }
 });
 
 backToMainbtn.addEventListener("click", function() {
