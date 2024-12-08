@@ -234,9 +234,9 @@ let unmotivationalPosters = [
 ];
 
 var savedPosters = [];
+var cleanedPosterData = [];
+var firstTimeLoading = true;
 var currentPoster;
-let cleanedPosterData = [];
-let firstTimeLoading = true;
 
 // event listeners go here 👇
 document.addEventListener("DOMContentLoaded", displayContent);
@@ -398,12 +398,14 @@ function showUnmotivationalPosters() {
                                                 <h4>${quote}</h4>
                                               </article>`;
     };
-  
+    
     const miniPosters = document.querySelectorAll('.mini-poster');
-  
+
     miniPosters.forEach(miniPoster => {
       miniPoster.addEventListener('dblclick', function(event) {
         if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.tagName === "ARTICLE") {
+          debugger;
+          console.log(event.target)
           if (miniPoster.hasChildNodes(event.target)) {
             miniPoster.remove();
 
@@ -420,6 +422,7 @@ function showUnmotivationalPosters() {
                     break;
               };
             };
+            console.log(cleanedPosterData)
           };
         };
       });
