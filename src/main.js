@@ -266,6 +266,8 @@ function createPoster(imageURL, title, quote) {
 };
 
 function cleanData() {
+  cleanedPosterData = [];
+
   for (let i = 0; i < unmotivationalPosters.length; i++) {
     let imageURL = unmotivationalPosters[i].img_url;
     let title = unmotivationalPosters[i].name;
@@ -378,7 +380,7 @@ function saveThisPoster() {
 function showUnmotivationalPosters() {
   document.querySelector('.main-poster').classList.add('hidden');
   document.querySelector('.unmotivational-posters').classList.remove('hidden');
-  
+
   // debugger;
   // console.log(firstTimeLoading)
 
