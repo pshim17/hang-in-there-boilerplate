@@ -343,6 +343,7 @@ function showCreatePoster() {
   titles.push(currentPoster.title);
   quotes.push(currentPoster.quote);
 
+  // debugger
   // console.log(images)
   // console.log(titles)
   // console.log(quotes)
