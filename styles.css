@@ -148,6 +148,20 @@ button:hover {
   color: white;
 }
 
+.unmotivational-posters-button,
+.back-to-main-button {
+  background: black;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+}
+
+.unmotivational-posters-button:hover,
+.back-to-main-button:hover {
+  background: darkslateblue;
+}
 .unmotivational-posters-grid {
   display: flex;
   flex-wrap: wrap;

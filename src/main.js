@@ -262,7 +262,17 @@ function createPoster(imageURL, title, quote) {
     imageURL: imageURL, 
     title: title, 
     quote: quote
-  }
+  };
+};
+
+function cleanData() {
+  for (let i = 0; i < unmotivationalPosters.length; i++) {
+    let imageURL = unmotivationalPosters[i].img_url;
+    let title = unmotivationalPosters[i].name;
+    let quote = unmotivationalPosters[i].description;  
+
+    cleanedPosterData.push(createPoster(imageURL, title, quote));
+  };
 };
 
 function displayContent() {
@@ -286,11 +296,6 @@ function makeOwnPoster() {
   document.querySelector('.main-poster').classList.add('hidden');
 };
 
-function nvmBacktoMain() {
-  document.querySelector('.poster-form').classList.add('hidden');
-  document.querySelector('.main-poster').classList.remove('hidden');
-};
-
 function showSavedPoster() {
   document.querySelector('.saved-posters').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
@@ -310,8 +315,18 @@ function showSavedPoster() {
   };
 };
 
+function nvmBacktoMain() {
+  document.querySelector('.poster-form').classList.add('hidden');
+  document.querySelector('.main-poster').classList.remove('hidden');
+};
+
 function backToMain() {
   document.querySelector('.saved-posters').classList.add('hidden');
+  document.querySelector('.main-poster').classList.remove('hidden');
+};
+
+function backToMainFromUnmotivationalPosters() {
+  document.querySelector('.unmotivational-posters').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
 };
 
@@ -351,8 +366,8 @@ function saveThisPoster() {
     if (savedPosters[i].imageURL === imageURL) {
       posterAlreadyExists = true;
       break;
-    }
-  }
+    };
+  };
 
   if (posterAlreadyExists === false) {
     currentPoster = createPoster(imageURL, title, quote);
@@ -368,6 +383,8 @@ function showUnmotivationalPosters() {
   // console.log(firstTimeLoading)
 
   if (firstTimeLoading) {
+    unmotivationalPostersGrid.innerHTML = ``;
+
     cleanData();
 
     for (let i = 0; i < cleanedPosterData.length; i++) {
@@ -386,36 +403,27 @@ function showUnmotivationalPosters() {
   
     miniPosters.forEach(miniPoster => {
       miniPoster.addEventListener('dblclick', function(event) {
-        if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.classList.contains("mini-poster")) {
+        if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.tagName === "ARTICLE") {
           if (miniPoster.hasChildNodes(event.target)) {
             miniPoster.remove();
+
             for (let i = 0; i < cleanedPosterData.length; i++) {
               let unmotivationalPosterValuesArray = Object.values(cleanedPosterData[i]);
-              if (event.target.tagName != 'IMG' && unmotivationalPosterValuesArray.includes(event.target.innerHTML) || event.target.tagName === 'IMG' && unmotivationalPosterValuesArray.includes(event.target.getAttribute('src'))) {
-                cleanedPosterData.splice(i, 1);
-                firstTimeLoading = false;
-                break;
+
+              if (event.target.tagName === 'H2' && unmotivationalPosterValuesArray.includes(event.target.innerHTML) || 
+                  event.target.tagName === 'H4' && unmotivationalPosterValuesArray.includes(event.target.innerHTML) ||
+                  event.target.tagName === 'IMG' && unmotivationalPosterValuesArray.includes(event.target.getAttribute('src')) || 
+                  event.target.tagName === 'ARTICLE' && unmotivationalPosterValuesArray.includes(event.target.children[0].getAttribute('src'))
+                ) {   
+                    firstTimeLoading = false;
+                    cleanedPosterData.splice(i, 1);
+                    break;
               };
             };
           };
         };
       });
     });
-  };
-};
-
-function backToMainFromUnmotivationalPosters() {
-  document.querySelector('.main-poster').classList.remove('hidden');
-  document.querySelector('.unmotivational-posters').classList.add('hidden');
-};
-
-function cleanData() {
-  for (let i = 0; i < unmotivationalPosters.length; i++) {
-    let imageURL = unmotivationalPosters[i].img_url;
-    let title = unmotivationalPosters[i].name;
-    let quote = unmotivationalPosters[i].description;  
-
-    cleanedPosterData.push(createPoster(imageURL, title, quote));
   };
 };
 
