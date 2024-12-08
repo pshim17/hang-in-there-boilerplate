@@ -239,11 +239,37 @@ let cleanedPosterData = [];
 let firstTimeLoading = true;
 
 // event listeners go here 👇
-document.addEventListener("DOMContentLoaded", function() {
-  randomPosterButton.click();
-});
+document.addEventListener("DOMContentLoaded", displayContent);
+randomPosterButton.addEventListener("click", displayRandomPoster);
+makeOwnPosterButton.addEventListener("click", makeOwnPoster);
+nvmBackToMainButton.addEventListener("click", nvmBacktoMain);
+showSavedPosterButton.addEventListener("click", showSavedPoster);
+backToMainButton.addEventListener("click", backToMain);
+showCreatedPosterButton.addEventListener("click", showCreatePoster);
+saveThisPosterButton.addEventListener("click", saveThisPoster);
+unmotivationalPostersBtn.addEventListener("click", showUnmotivationalPosters);
+backToMainbtn.addEventListener("click", backToMainFromUnmotivationalPosters);
 
-randomPosterButton.addEventListener("click", function() {
+// functions and event handlers go here 👇
+// (we've provided two to get you started)!
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+};
+
+function createPoster(imageURL, title, quote) {
+  return {
+    id: Date.now(), 
+    imageURL: imageURL, 
+    title: title, 
+    quote: quote
+  }
+};
+
+function displayContent() {
+  randomPosterButton.click();
+};
+
+function displayRandomPoster() {
   let imageURL = images[getRandomIndex(images)];
   let title = titles[getRandomIndex(titles)];
   let quote = quotes[getRandomIndex(quotes)];
@@ -253,19 +279,19 @@ randomPosterButton.addEventListener("click", function() {
   document.querySelector(".poster-quote").innerText = quote;
 
   createPoster(imageURL, title, quote);
-});
+};
 
-makeOwnPosterButton.addEventListener("click", function() {
+function makeOwnPoster() {
   document.querySelector('.poster-form').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
-});
+};
 
-nvmBackToMainButton.addEventListener("click", function() {
+function nvmBacktoMain() {
   document.querySelector('.poster-form').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
-});
+};
 
-showSavedPosterButton.addEventListener("click", function() {
+function showSavedPoster() {
   document.querySelector('.saved-posters').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
 
@@ -281,37 +307,41 @@ showSavedPosterButton.addEventListener("click", function() {
                                     <h2>${title}</h2>
                                     <h4>${quote}</h4>
                                   </article> `;
-  }
-});
+  };
+};
 
-backToMainButton.addEventListener("click", function() {
+function backToMain() {
   document.querySelector('.saved-posters').classList.add('hidden');
   document.querySelector('.main-poster').classList.remove('hidden');
-});
+};
 
-showCreatedPosterButton.addEventListener("click", function() {
+function showCreatePoster() {
   let imageURL = document.querySelector("#poster-image-url").value;
   let title = document.querySelector("#poster-title").value;
   let quote = document.querySelector("#poster-quote").value;
 
   currentPoster = createPoster(imageURL, title, quote);
 
-  images.push(imageURL);
-  titles.push(title);
-  quotes.push(quote);
+  images.push(currentPoster.imageURL);
+  titles.push(currentPoster.title);
+  quotes.push(currentPoster.quote);
+
+  // console.log(images)
+  // console.log(titles)
+  // console.log(quotes)
 
   document.querySelector(".poster-form").classList.add("hidden");
 
-  document.querySelector(".poster-img").src = imageURL;
-  document.querySelector(".poster-title").innerText = title;
-  document.querySelector(".poster-quote").innerText = quote;
+  document.querySelector(".poster-img").src = currentPoster.imageURL;
+  document.querySelector(".poster-title").innerText = currentPoster.title;
+  document.querySelector(".poster-quote").innerText = currentPoster.quote;
 
   document.querySelector(".main-poster").classList.remove("hidden");
 
   event.preventDefault();
-});
+};
 
-saveThisPosterButton.addEventListener("click", function() {
+function saveThisPoster() {
   let imageURL = document.querySelector(".poster-img").src;
   let title = document.querySelector(".poster-title").innerText;
   let quote = document.querySelector(".poster-quote").innerText;
@@ -327,10 +357,10 @@ saveThisPosterButton.addEventListener("click", function() {
   if (posterAlreadyExists === false) {
     currentPoster = createPoster(imageURL, title, quote);
     savedPosters.push(currentPoster);
-  }
-});
+  };
+};
 
-unmotivationalPostersBtn.addEventListener("click", function() {
+function showUnmotivationalPosters() {
   document.querySelector('.main-poster').classList.add('hidden');
   document.querySelector('.unmotivational-posters').classList.remove('hidden');
   
@@ -362,8 +392,6 @@ unmotivationalPostersBtn.addEventListener("click", function() {
             for (let i = 0; i < cleanedPosterData.length; i++) {
               let unmotivationalPosterValuesArray = Object.values(cleanedPosterData[i]);
               if (event.target.tagName != 'IMG' && unmotivationalPosterValuesArray.includes(event.target.innerHTML) || event.target.tagName === 'IMG' && unmotivationalPosterValuesArray.includes(event.target.getAttribute('src'))) {
-                console.log(cleanedPosterData.splice(i, 1));
-                console.log(cleanedPosterData)
                 cleanedPosterData.splice(i, 1);
                 firstTimeLoading = false;
                 break;
@@ -373,27 +401,12 @@ unmotivationalPostersBtn.addEventListener("click", function() {
         };
       });
     });
-  }
-});
-
-backToMainbtn.addEventListener("click", function() {
-  document.querySelector('.main-poster').classList.remove('hidden');
-  document.querySelector('.unmotivational-posters').classList.add('hidden');
-});
-
-// functions and event handlers go here 👇
-// (we've provided two to get you started)!
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+  };
 };
 
-function createPoster(imageURL, title, quote) {
-  return {
-    id: Date.now(), 
-    imageURL: imageURL, 
-    title: title, 
-    quote: quote
-  }
+function backToMainFromUnmotivationalPosters() {
+  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector('.unmotivational-posters').classList.add('hidden');
 };
 
 function cleanData() {
@@ -403,5 +416,6 @@ function cleanData() {
     let quote = unmotivationalPosters[i].description;  
 
     cleanedPosterData.push(createPoster(imageURL, title, quote));
-  }
+  };
 };
+
