@@ -110,8 +110,7 @@ button:hover {
   padding: 40px;
 }
 
-.saved-posters-grid,
-.unmotivational-posters-grid {
+.saved-posters-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
@@ -151,6 +150,8 @@ button:hover {
 .unmotivational-posters-grid {
   display: flex;
   flex-wrap: wrap;
+  grid-gap: 10px;
+  padding: 20px;
 }
 
 .unmotivational-posters-grid .mini-poster {

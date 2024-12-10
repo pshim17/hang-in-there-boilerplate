@@ -337,6 +337,7 @@ function showCreatePoster() {
   let title = document.querySelector("#poster-title").value;
   let quote = document.querySelector("#poster-quote").value;
 
+  debugger;
   currentPoster = createPoster(imageURL, title, quote);
 
   images.push(currentPoster.imageURL);
@@ -366,7 +367,7 @@ function saveThisPoster() {
   let posterAlreadyExists = false;
 
   for(let i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].imageURL === imageURL) {
+    if (savedPosters[i].imageURL === imageURL && savedPosters[i].title === title && savedPosters[i].quote === quote) {
       posterAlreadyExists = true;
       break;
     };
@@ -407,8 +408,9 @@ function showUnmotivationalPosters() {
     miniPosters.forEach(miniPoster => {
       miniPoster.addEventListener('dblclick', function(event) {
         if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.tagName === "ARTICLE") {
-          debugger;
-          console.log(event.target)
+          // debugger;
+          // console.log(event.target)
+          // console.log(miniPoster)
           if (miniPoster.hasChildNodes(event.target)) {
             miniPoster.remove();
 
