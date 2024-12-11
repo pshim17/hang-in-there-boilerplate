@@ -11,6 +11,7 @@ This allows users to view, create, and save motivational posters, along with vie
 
 ### Preview of App:
 [//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off. gifs preferred!)
+![ScreenRecording2024-12-11at311-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f1954a56-16c1-40e0-8c89-fcb581512bcf)
 
 ### Context:
 [//]: <> (Give some context for the project here. How long did you have to work on it? How far into the Turing program are you?)
