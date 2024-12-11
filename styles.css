@@ -27,6 +27,7 @@ button {
 
 button:hover {
   background: darkslateblue;
+  cursor: pointer;
 }
 
 .hidden {

@@ -310,7 +310,7 @@ function showSavedPoster() {
     let quote = savedPosters[i].quote;
 
     savedPostersGrid.innerHTML += `<article class="mini-poster">
-                                    <img src="${imageURL}">
+                                    <img src="${imageURL}" alt="${title}">
                                     <h2>${title}</h2>
                                     <h4>${quote}</h4>
                                   </article> `;
@@ -367,7 +367,9 @@ function saveThisPoster() {
   let posterAlreadyExists = false;
 
   for(let i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].imageURL === imageURL && savedPosters[i].title === title && savedPosters[i].quote === quote) {
+    if (savedPosters[i].imageURL === imageURL && 
+      savedPosters[i].title === title && 
+      savedPosters[i].quote === quote) {
       posterAlreadyExists = true;
       break;
     };
@@ -397,7 +399,7 @@ function showUnmotivationalPosters() {
       let quote = cleanedPosterData[i].quote;
   
       unmotivationalPostersGrid.innerHTML += `<article class="mini-poster">
-                                                <img src="${imageURL}">
+                                                <img src="${imageURL}" alt="${title}">
                                                 <h2>${title}</h2>
                                                 <h4>${quote}</h4>
                                               </article>`;
@@ -407,7 +409,10 @@ function showUnmotivationalPosters() {
 
     miniPosters.forEach(miniPoster => {
       miniPoster.addEventListener('dblclick', function(event) {
-        if (event.target.tagName === 'IMG' || event.target.tagName === "H2" || event.target.tagName === "H4" || event.target.tagName === "ARTICLE") {
+        if (event.target.tagName === 'IMG' || 
+          event.target.tagName === "H2" || 
+          event.target.tagName === "H4" || 
+          event.target.tagName === "ARTICLE") {
           // debugger;
           // console.log(event.target)
           // console.log(miniPoster)
