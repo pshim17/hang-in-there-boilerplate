@@ -416,7 +416,7 @@ function showUnmotivationalPosters() {
           // debugger;
           // console.log(event.target)
           // console.log(miniPoster)
-          if (miniPoster.hasChildNodes(event.target)) {
+          if (miniPoster.contains(event.target)) {
             miniPoster.remove();
 
             for (let i = 0; i < cleanedPosterData.length; i++) {
@@ -432,7 +432,7 @@ function showUnmotivationalPosters() {
                     break;
               };
             };
-            console.log(cleanedPosterData)
+            // console.log(cleanedPosterData)
           };
         };
       });
